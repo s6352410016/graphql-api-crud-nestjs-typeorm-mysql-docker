@@ -1,0 +1,48 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Customer {
+  cust_id: Int!
+  cust_name: String!
+  cust_address: String!
+  cust_tel: String!
+  cust_salary: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ResMsgClass {
+  msg: String!
+}
+
+type Query {
+  getAll: [Customer!]!
+  getById(id: Int!): Customer!
+}
+
+type Mutation {
+  create(createCustomerDto: CreateCustomerDto!): Customer!
+  update(updateCustomerDto: UpdateCustomerDto!): Customer!
+  delete(id: Int!): ResMsgClass!
+}
+
+input CreateCustomerDto {
+  cust_name: String!
+  cust_address: String!
+  cust_tel: String!
+  cust_salary: Float!
+}
+
+input UpdateCustomerDto {
+  cust_id: Int!
+  cust_name: String!
+  cust_address: String!
+  cust_tel: String!
+  cust_salary: Float!
+}

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  nest-app:
+    container_name: nest-app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      - DB_TYPE=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=bunlung
+      - DB_PASS=5087
+      - DB_NAME=customer_db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mysql
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=5087
+      - MYSQL_USER=bunlung
+      - MYSQL_PASSWORD=5087
+      - MYSQL_DATABASE=customer_db
+    volumes:
+      - mysqldata:/etc/mysql/conf.d 
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=bunlung
+      - PMA_PASSWORD=5087
+    depends_on:
+      - mysql
+volumes:
+  mysqldata:          
